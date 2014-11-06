@@ -6,29 +6,30 @@
     <meta name="application-name" content="{{=request.application}}" />
     <meta name="EduSoft" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link type="text/css" 
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.jpeg')}}" type="image/jpeg">
+     <link rel="stylesheet" type="text/css" href="{{=URL('static','css/1.css')}}">
     
     </head>
     <body>
-        <div id='top' class='up'>
-            <div id='logo' class='up'>
-              <h1>EduSoft</h1>
+        <div id='top' class='header'>
+            <div id='logo'>
+              <br>
+              <h1 >&nbsp;EduSoft</h1>
             </div>
-            <div id = 'login' class='up'>
-                <form action="{{}}">
+            <div id ='login' class='up'>
+                <form action="fttps://www.google.com">
                     <input type="text" placeholder='username' required>
                     <input type='password' placeholder='password' required>
-                    <input type = 'submit' value='Login' >
+                    <input type = 'submit' id='logbutton'value='Login' >
                 </form>
             </div>
         </div>
 
         <div id='bottom' class='down'>
-            <div id = 'intro' class="down">
+            <div id = 'intro' >
                 This site lets you take tests uploaded by professors.
             </div>
-            <div id='signup' class='down'>
+            <div id='signup' >
                 <form action="https://www.google.com">
                     Full Name : <input type="text" placeholder='Name' required><br>
                     Email : <input type = 'email' placeholder = 'E-Mail' required><br>

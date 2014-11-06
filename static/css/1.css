@@ -1,0 +1,84 @@
+body{
+	background-image: url("../images/bg5.png");
+	background-size: 
+}
+
+.header{
+	width:	auto;
+	background-color: #450101;
+	margin-top: -21px;
+	height: 80pt;
+	margin-left: -8px;
+	margin-right: -8px;
+	background-image: url("../images/head5.png");
+
+}
+
+#logo{
+	color: #596607;
+	float: left;
+}
+
+#login{
+	float:right;
+	padding-right: 5pt;
+	margin-top: 40pt;
+}
+
+#logbutton{
+	color: #088A4B;
+	background-color: transparent;
+	border-color:  #032903;
+}
+.down{
+	margin-top: 30px;
+	min-height: 300pt;
+}
+#intro{
+	float: left;
+	width: 40%;
+	height: 280pt;
+	margin-top: 10pt;
+	margin-left: 10pt;
+	background-image: url("../images/main1.jpg");
+	border-radius: 15px;
+	box-shadow: 20pt 20pt 20pt;
+
+}
+#signup{
+	float: right;
+	width: 50%;
+	border-radius: 15px;
+	height: 280pt;
+	margin-top: 10pt;
+	margin-left: 10pt;
+	margin-right: 10pt;
+	padding-left: 20pt;
+	background-image: url("../images/signbg.png");
+	box-shadow: 20pt 20pt 20pt;
+
+}
+.centerp{
+	height: 200pt;
+	width: 350pt;
+	border: 2pt solid black;
+	border-color: green;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 50pt;
+	margin: auto;
+}
+
+img{
+	margin: auto;
+	margin-left: 44%;
+
+}
+
+footer{
+	
+	bottom: 0px;
+	position: absolute;
+	text-align: right;
+	padding-left: 80%;
+}
