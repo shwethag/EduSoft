@@ -1,1 +1,16 @@
 [2014-11-02 11:57:40] START
+[2014-11-06 22:58:09] EDIT EduSoft/models/db.py: 0
+[2014-11-06 23:11:48] EDIT EduSoft/models/db.py: -4
+[2014-11-06 23:11:54] EDIT EduSoft/models/db.py: 0
+[2014-11-06 23:16:03] EDIT EduSoft/controllers/default.py: 3
+[2014-11-06 23:18:05] CREATE default/insert.html: 0
+[2014-11-06 23:18:36] EDIT EduSoft/views/default/insert.html: -1
+[2014-11-06 23:20:56] EDIT EduSoft/controllers/default.py: 3
+[2014-11-06 23:21:33] CREATE default/display.html: 0
+[2014-11-06 23:21:58] EDIT EduSoft/views/default/display.html: 0
+[2014-11-06 23:22:36] CREATE default/displayProfileList.html: 0
+[2014-11-06 23:22:47] EDIT EduSoft/views/default/displayProfileList.html: -1
+[2014-11-06 23:23:18] EDIT EduSoft/views/default/displayProfileList.html: 1
+[2014-11-06 23:26:18] EDIT EduSoft/views/default/displayProfileList.html: 1
+[2014-11-06 23:27:15] EDIT EduSoft/views/default/displayProfileList.html: 2
+[2014-11-06 23:27:19] EDIT EduSoft/views/default/displayProfileList.html: -1

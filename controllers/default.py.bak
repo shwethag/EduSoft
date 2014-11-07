@@ -20,11 +20,6 @@ def insert():
     form=SQLFORM(db.profile).process()
     return dict(form=form)
 
-def displayProfileList():
-    rows=db(db.profile).select()
-    return dict(message=rows)
-    
-    
 def user():
     """
     exposes:
