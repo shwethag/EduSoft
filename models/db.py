@@ -21,6 +21,7 @@ db.define_table('profile',
                 Field('pwd','password',notnull = True),
                 Field('profile_pic','blob'),
                 redefine = True,
+                fake_migrate=True,
                 migrate = True,
                 primarykey=['pid']
                 )
@@ -29,6 +30,7 @@ db.define_table('category',
                 Field('cname','string',notnull = True),
                 redefine = True,
                 migrate = True,
+                fake_migrate=True,
                 primarykey=['cid']
                 )
 
@@ -41,6 +43,7 @@ db.define_table('test',
                 Field('negative','double'),
                 Field('last_date','date'),
                 redefine = True,
+                fake_migrate=True,
                 migrate = True,
                 primarykey=['tid']
                 )
@@ -50,8 +53,10 @@ db.define_table('statistics',
                 Field('score','double'),
                 Field('taken_on','datetime'),
                 migrate = True,
+                fake_migrate=True,
                 primarykey=['stud_id','test_id','taken_on']
                )
+
 #########################################################################
 
 from gluon.tools import Auth, Service, PluginManager

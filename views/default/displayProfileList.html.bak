@@ -1,6 +1,0 @@
-{{('message' in globals())}}
-<h1>This is the default/displayProfileList.html template</h1>
-{{if 'message' in globals():}}
-<h3>{{=message}}</h3>
-{{pass}}
-{{=BEAUTIFY(response._vars)}}

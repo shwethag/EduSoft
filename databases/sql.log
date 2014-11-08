@@ -174,3 +174,110 @@ success!
 success!
 success!
 success!
+success!
+success!
+success!
+timestamp: 2014-11-08T16:38:15.385936
+CREATE TABLE statistics(
+    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
+    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
+    score DOUBLE,
+    taken_on TIMESTAMP NOT NULL,
+    PRIMARY KEY(stud_id, test_id, taken_on)) ;
+success!
+success!
+success!
+timestamp: 2014-11-08T16:41:31.556621
+CREATE TABLE statistics(
+    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
+    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
+    score DOUBLE,
+    taken_on TIMESTAMP NOT NULL,
+    PRIMARY KEY(stud_id, test_id, taken_on)) ;
+success!
+success!
+success!
+timestamp: 2014-11-08T16:42:20.518153
+CREATE TABLE statistics(
+    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
+    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
+    score DOUBLE,
+    taken_on TIMESTAMP NOT NULL,
+    PRIMARY KEY(taken_on)) ;
+success!
+success!
+success!
+timestamp: 2014-11-08T16:43:43.638465
+CREATE TABLE statistics(
+    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
+    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
+    score DOUBLE,
+    takenOn TIMESTAMP NOT NULL,
+    PRIMARY KEY(takenOn)) ;
+success!
+success!
+success!
+timestamp: 2014-11-08T16:50:27.615321
+CREATE TABLE statistics(
+    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
+    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
+    score DOUBLE,
+    takenOn TIMESTAMP NOT NULL,
+    PRIMARY KEY(takenOn)) ;
+success!
+success!
+success!
+timestamp: 2014-11-08T16:51:52.307292
+CREATE TABLE statistics(
+    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
+    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
+    score DOUBLE,
+    taken_on TIMESTAMP NOT NULL,
+    PRIMARY KEY(taken_on)) ;
+success!
+success!
+success!
+timestamp: 2014-11-08T16:52:30.393950
+CREATE TABLE statistics(
+    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
+    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
+    score DOUBLE,
+    taken_on TIMESTAMP NOT NULL,
+    PRIMARY KEY(taken_on)) ;
+faked!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2014-11-08T17:06:56.972280
+ALTER TABLE profile ADD username CHAR(512) NOT NULL UNIQUE;
+timestamp: 2014-11-08T17:07:19.700357
+ALTER TABLE profile ADD username CHAR(512) NOT NULL UNIQUE;
+timestamp: 2014-11-08T17:07:44.083727
+ALTER TABLE profile ADD username CHAR(512) NOT NULL UNIQUE;
+timestamp: 2014-11-08T17:09:07.131894
+ALTER TABLE profile ADD username CHAR(512) NOT NULL UNIQUE;
+faked!
+success!
+success!
+success!

@@ -16,13 +16,39 @@ def index():
    # response.flash = T("Welcome to web2py!")
     return dict(message=T('Hello World'))
 
-def insert():
+def insertProfile():
     form=SQLFORM(db.profile).process()
     return dict(form=form)
 
-def displayProfileList():
+def displayProfile():
     rows=db(db.profile).select()
     return dict(message=rows)
+
+def insertTest():
+    form=SQLFORM(db.test).process()
+    return dict(form=form)
+
+def displayTest():
+    rows=db(db.test).select()
+    return dict(message=rows)
+
+def insertCategory():
+    form=SQLFORM(db.category).process()
+    return dict(form=form)
+    
+def displayCategory():    
+    rows=db(db.category).select()
+    return dict(message=rows)
+
+def insertStatistics():
+    form=SQLFORM(db.statistics).process()
+    return dict(form=form)
+    
+    
+def displayStatistics():    
+    rows=db(db.statistics).select()
+    return dict(message=rows)
+    
     
     
 def user():
