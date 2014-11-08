@@ -14,6 +14,7 @@ db = DAL('sqlite://EduDB.sqlite')
 db.define_table('profile',
                 Field('pid','id'),
                 Field('name','string',notnull = True),
+                Field('username','string',notnull = True,unique = True),
                 Field('dob','date'),
                 Field('is_stud','boolean',notnull = True),
                 Field('email','string',notnull = True),
@@ -44,13 +45,13 @@ db.define_table('test',
                 primarykey=['tid']
                 )
 db.define_table('statistics',
-                Field('stud_id',db.profile.pid,notnull=True),
+                Field('stud_id',db.profile.pid,notnull = True),
                 Field('test_id',db.test.tid,notnull = True),
                 Field('score','double'),
                 Field('taken_on','datetime'),
+                migrate = True,
                 primarykey=['stud_id','test_id','taken_on']
-                )
-                
+               )
 #########################################################################
 
 from gluon.tools import Auth, Service, PluginManager
