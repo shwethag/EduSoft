@@ -58,6 +58,21 @@ body{
 	box-shadow: 20pt 20pt 20pt;
 
 }
+#category{
+	margin-left: 5px;
+	padding-left: 5px;
+}
+#signup input{
+	margin-left: 30%;
+
+}
+#signup label{
+    
+}
+.signupinp{
+	margin-top: 5px;
+
+}
 .centerp{
 	height: 200pt;
 	width: 350pt;

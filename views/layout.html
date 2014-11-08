@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.jpeg')}}" type="image/jpeg">
      <link rel="stylesheet" type="text/css" href="{{=URL('static','css/1.css')}}">
-    
     </head>
     <body>
         <div id='top' class='header'>
@@ -31,8 +30,34 @@
             </div>
             <div id='signup' >
                 <form action="https://www.google.com">
-                    Full Name : <input type="text" placeholder='Name' required><br>
-                    Email : <input type = 'email' placeholder = 'E-Mail' required><br>
+                    <h3>
+                          Sign Up!!
+                    </h3>
+                    <div class='signupinp'>
+                        <label>Full Name :</label> <input type='text' placeholder='Full Name' required>
+                    </div>
+                    <div class='signupinp'>
+                        <label>User Name :</label> <input type='text' placeholder='User Name' required>
+                    </div>    
+                    <div class='signupinp'>
+                        <label>Date of Birth :</label> <input type = 'date' placeholder='dd/mm/yy' >
+                    </div>    
+                    <div class='signupinp' id='category'>
+                        <label>Which category do you belong to?</label>
+                        <br>
+                        <label>Teacher :</label> <input type = 'radio' name ='category' value = 'Teacher' >
+                        <label>Student :</label> <input type = 'radio' name ='category' value = 'Student' >
+                    </div>    
+                        
+                    <div class='signupinp'>    
+                        <label>Email :</label> <input type = 'email' placeholder = 'E-Mail' required>
+                    </div>
+                    <div class='signupinp'>    
+                        <label >Choose Password :</label> <input type = 'password' placeholder = 'password'>
+                     </div>
+                     <div class='signupinp'>   
+                        <label>Re-Enter Password :</label> <input type = 'password' placeholder = 'password'>
+                     </div>   
                     <input type = 'submit' value="Sign Up">
                 </form>
             </div>
@@ -41,4 +66,3 @@
 
     </body>
 </html>
-
