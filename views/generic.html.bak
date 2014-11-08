@@ -1,3 +1,4 @@
+{{extend 'layout.html'}}
 {{"""
 
 You should not modify this file. 

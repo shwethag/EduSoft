@@ -10,15 +10,40 @@
 # request.requires_https()
 
 db = DAL('sqlite://EduDB.sqlite')
+
 db.define_table('profile',
-                Field('name','string'),
+                Field('pid','id'),
+                Field('name','string',notnull = True),
                 Field('dob','date'),
-                Field('is_stud','boolean'),
-                Field('email','string'),
-                Field('pwd','password'),
+                Field('is_stud','boolean',notnull = True),
+                Field('email','string',notnull = True),
+                Field('pwd','password',notnull = True),
                 Field('profile_pic','blob'),
+                redefine = True,
+                migrate = True,
+                primarykey=['pid']
                 )
-    
+db.define_table('category',
+                Field('cid','id'),
+                Field('cname','string',notnull = True),
+                redefine = True,
+                migrate = True,
+                primarykey=['cid']
+                )
+
+db.define_table('test',
+                Field('tid','id'),
+                Field('tname','string',notnull = True),
+                Field('category',db.category.id,notnull = True),
+                Field('tlink','string',notnull = True),
+                Field('teacher_id',db.profile.pid,notnull = True),
+                Field('negative','double'),
+                Field('last_date','date'),
+                redefine = True,
+                migrate = True,
+                primarykey=['tid']
+                )
+
 #########################################################################
 
 from gluon.tools import Auth, Service, PluginManager
