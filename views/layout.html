@@ -29,34 +29,34 @@
                 This site lets you take tests uploaded by professors.
             </div>
             <div id='signup' >
-                <form action="https://www.google.com">
+                <form action="{{=URL('process',args=['fname','uname','dob','category','mailid','pwd','rpwd'])}}" method="post">
                     <h3>
                           Sign Up!!
                     </h3>
                     <div class='signupinp'>
-                        <label>Full Name :</label> <input type='text' placeholder='Full Name' required>
+                        <label>Full Name :</label> <input name='fname' type='text' placeholder='Full Name' >
                     </div>
                     <div class='signupinp'>
-                        <label>User Name :</label> <input type='text' placeholder='User Name' required>
+                        <label>User Name :</label> <input name='uname' type='text' placeholder='User Name' >
                     </div>    
                     <div class='signupinp'>
-                        <label>Date of Birth :</label> <input type = 'date' placeholder='dd/mm/yy' >
+                        <label>Date of Birth :</label> <input name='dob' type = 'date' placeholder='dd/mm/yy' >
                     </div>    
                     <div class='signupinp' id='category'>
                         <label>Which category do you belong to?</label>
                         <br>
-                        <label>Teacher :</label> <input type = 'radio' name ='category' value = 'Teacher' >
+                        <label>Teacher :</label> <input  type = 'radio' name ='category' value = 'Teacher' >
                         <label>Student :</label> <input type = 'radio' name ='category' value = 'Student' >
                     </div>    
                         
                     <div class='signupinp'>    
-                        <label>Email :</label> <input type = 'email' placeholder = 'E-Mail' required>
+                        <label>Email :</label> <input name='mailid' type = 'email' placeholder = 'E-Mail' >
                     </div>
                     <div class='signupinp'>    
-                        <label >Choose Password :</label> <input type = 'password' placeholder = 'password'>
+                        <label >Choose Password :</label> <input name='pwd' type = 'password' placeholder = 'password'>
                      </div>
                      <div class='signupinp'>   
-                        <label>Re-Enter Password :</label> <input type = 'password' placeholder = 'password'>
+                        <label>Re-Enter Password :</label> <input name='rpwd' type = 'password' placeholder = 'password'>
                      </div>   
                     <input type = 'submit' value="Sign Up">
                 </form>

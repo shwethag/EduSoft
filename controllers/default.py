@@ -16,6 +16,20 @@ def index():
    # response.flash = T("Welcome to web2py!")
     return dict(message=T('Hello World'))
 
+def process():
+    name = request.vars['fname']
+    uname = request.vars['uname']
+    dob = request.vars['dob']
+    category = request.vars['category']
+    mailid = request.vars['mailid']
+    pwd = request.vars['pwd']
+    rpwd = request.vars['rpwd']
+    if pwd != rpwd:
+        response.flash = T('Password did not match!!')
+        redirect(request.env.http_referrer)
+    else:
+        return dict(arg=request.args,var=request.vars)
+
 def insertProfile():
     form=SQLFORM(db.profile).process()
     return dict(form=form)
