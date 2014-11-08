@@ -34,7 +34,7 @@ db.define_table('category',
 db.define_table('test',
                 Field('tid','id'),
                 Field('tname','string',notnull = True),
-                Field('category',db.category.id,notnull = True),
+                Field('category',db.category.cid,notnull = True),
                 Field('tlink','string',notnull = True),
                 Field('teacher_id',db.profile.pid,notnull = True),
                 Field('negative','double'),
@@ -43,7 +43,14 @@ db.define_table('test',
                 migrate = True,
                 primarykey=['tid']
                 )
-
+db.define_table('statistics',
+                Field('stud_id',db.profile.pid,notnull=True),
+                Field('test_id',db.test.tid,notnull = True),
+                Field('score','double'),
+                Field('taken_on','datetime'),
+                primarykey=['stud_id','test_id','taken_on']
+                )
+                
 #########################################################################
 
 from gluon.tools import Auth, Service, PluginManager
