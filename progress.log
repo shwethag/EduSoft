@@ -3,3 +3,9 @@
 [2014-11-08 23:12:42] EDIT EduSoft/controllers/default.py: 3
 [2014-11-08 23:17:58] EDIT EduSoft/controllers/default.py: 0
 [2014-11-08 23:21:53] EDIT EduSoft/controllers/default.py: 0
+[2014-11-09 22:34:01] EDIT EduSoft/views/default/insertProfile.html: 1
+[2014-11-09 22:34:20] EDIT EduSoft/views/default/insertProfile.html: 0
+[2014-11-09 22:34:23] EDIT EduSoft/views/default/insertProfile.html: 0
+[2014-11-09 22:34:39] EDIT EduSoft/views/default/insertProfile.html: 0
+[2014-11-09 22:40:37] EDIT EduSoft/views/default/insertProfile.html: 1
+[2014-11-09 23:10:10] CREATE default/deleteProfile.html: 0

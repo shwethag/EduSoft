@@ -1,70 +1,107 @@
-timestamp: 2014-11-02T11:57:49.802183
-CREATE TABLE auth_user(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    first_name CHAR(128),
-    last_name CHAR(128),
-    email CHAR(512),
-    password CHAR(512),
-    registration_key CHAR(512),
-    reset_password_key CHAR(512),
-    registration_id CHAR(512)
-);
-success!
-timestamp: 2014-11-02T11:57:49.921804
-CREATE TABLE auth_group(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    role CHAR(512),
-    description TEXT
-);
-success!
-timestamp: 2014-11-02T11:57:50.006241
-CREATE TABLE auth_membership(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
-    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
-);
-success!
-timestamp: 2014-11-02T11:57:50.114696
-CREATE TABLE auth_permission(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
-    name CHAR(512),
-    table_name CHAR(512),
-    record_id INTEGER
-);
-success!
-timestamp: 2014-11-02T11:57:50.223642
-CREATE TABLE auth_event(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    time_stamp TIMESTAMP,
-    client_ip CHAR(512),
-    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
-    origin CHAR(512),
-    description TEXT
-);
-success!
-timestamp: 2014-11-02T11:57:50.325911
-CREATE TABLE auth_cas(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
-    created_on TIMESTAMP,
-    service CHAR(512),
-    ticket CHAR(512),
-    renew CHAR(1)
-);
-success!
-timestamp: 2014-11-06T23:12:03.732102
+timestamp: 2014-11-09T22:52:15.452328
 CREATE TABLE profile(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name CHAR(512),
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512) NOT NULL,
+    username CHAR(512) NOT NULL,
     dob DATE,
-    is_stud CHAR(1),
-    email CHAR(512),
-    pwd CHAR(512),
+    is_stud CHAR(1) NOT NULL,
+    email CHAR(512) NOT NULL,
+    pwd CHAR(512) NOT NULL,
+    profile_pic BLOB,
+    PRIMARY KEY(pid)) ;
+timestamp: 2014-11-09T22:53:39.314215
+CREATE TABLE profile(
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512) NOT NULL,
+    username CHAR(512) NOT NULL,
+    dob DATE,
+    is_stud CHAR(1) NOT NULL,
+    email CHAR(512) NOT NULL,
+    pwd CHAR(512) NOT NULL,
+    profile_pic BLOB,
+    PRIMARY KEY(pid)) ;
+timestamp: 2014-11-09T22:55:34.130669
+CREATE TABLE profile(
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512) NOT NULL,
+    username CHAR(512) NOT NULL,
+    dob DATE,
+    is_stud CHAR(1) NOT NULL,
+    email CHAR(512) NOT NULL,
+    pwd CHAR(512) NOT NULL,
+    profile_pic BLOB,
+    PRIMARY KEY(pid)) ;
+timestamp: 2014-11-09T22:55:43.211705
+CREATE TABLE profile(
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512) NOT NULL,
+    username CHAR(512) NOT NULL,
+    dob DATE,
+    is_stud CHAR(1) NOT NULL,
+    email CHAR(512) NOT NULL,
+    pwd CHAR(512) NOT NULL,
+    profile_pic BLOB,
+    PRIMARY KEY(pid)) ;
+timestamp: 2014-11-09T22:56:00.046983
+CREATE TABLE profile(
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512) NOT NULL,
+    username CHAR(512) NOT NULL,
+    dob DATE,
+    is_stud CHAR(1) NOT NULL,
+    email CHAR(512) NOT NULL,
+    pwd CHAR(512) NOT NULL,
+    profile_pic BLOB,
+    PRIMARY KEY(pid)) ;
+timestamp: 2014-11-09T22:57:20.002760
+CREATE TABLE profile(
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512) NOT NULL,
+    username CHAR(512) NOT NULL,
+    dob DATE,
+    is_stud CHAR(1) NOT NULL,
+    email CHAR(512) NOT NULL,
+    pwd CHAR(512) NOT NULL,
+    profile_pic BLOB,
+    PRIMARY KEY(pid)) ;
+timestamp: 2014-11-09T22:58:38.624773
+CREATE TABLE profile(
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512) NOT NULL,
+    username CHAR(512) NOT NULL,
+    dob DATE,
+    is_stud CHAR(1) NOT NULL,
+    email CHAR(512) NOT NULL,
+    pwd CHAR(512) NOT NULL,
     profile_pic BLOB
 );
 success!
-timestamp: 2014-11-06T23:12:03.924322
+timestamp: 2014-11-09T22:58:38.741960
+CREATE TABLE category(
+    cid INTEGER PRIMARY KEY AUTOINCREMENT,
+    cname CHAR(512) NOT NULL
+);
+success!
+timestamp: 2014-11-09T23:04:08.107880
+CREATE TABLE test(
+    tid INTEGER PRIMARY KEY AUTOINCREMENT,
+    tname CHAR(512) NOT NULL,
+    category INTEGER REFERENCES category (cid) ON DELETE CASCADE,
+    tlink CHAR(512) NOT NULL,
+    teacher_id INTEGER REFERENCES profile (pid) ON DELETE CASCADE,
+    negative DOUBLE,
+    last_date TIMESTAMP
+);
+success!
+timestamp: 2014-11-09T23:04:08.220531
+CREATE TABLE statistics(
+    stud_id INTEGER REFERENCES profile (pid) ON DELETE CASCADE,
+    test_id INTEGER REFERENCES test (tid) ON DELETE CASCADE,
+    score DOUBLE,
+    taken_on TIMESTAMP NOT NULL,
+    PRIMARY KEY(stud_id, test_id, taken_on)) ;
+success!
+timestamp: 2014-11-09T23:04:08.353063
 CREATE TABLE auth_user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name CHAR(128),
@@ -76,21 +113,21 @@ CREATE TABLE auth_user(
     registration_id CHAR(512)
 );
 success!
-timestamp: 2014-11-06T23:12:04.065866
+timestamp: 2014-11-09T23:04:08.488830
 CREATE TABLE auth_group(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     role CHAR(512),
     description TEXT
 );
 success!
-timestamp: 2014-11-06T23:12:04.233200
+timestamp: 2014-11-09T23:04:08.620026
 CREATE TABLE auth_membership(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
 );
 success!
-timestamp: 2014-11-06T23:12:04.401331
+timestamp: 2014-11-09T23:04:08.779864
 CREATE TABLE auth_permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
@@ -99,7 +136,7 @@ CREATE TABLE auth_permission(
     record_id INTEGER
 );
 success!
-timestamp: 2014-11-06T23:12:04.570678
+timestamp: 2014-11-09T23:04:08.934645
 CREATE TABLE auth_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time_stamp TIMESTAMP,
@@ -109,7 +146,7 @@ CREATE TABLE auth_event(
     description TEXT
 );
 success!
-timestamp: 2014-11-06T23:12:04.727618
+timestamp: 2014-11-09T23:04:09.070356
 CREATE TABLE auth_cas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
@@ -120,668 +157,22 @@ CREATE TABLE auth_cas(
 );
 success!
 success!
-timestamp: 2014-11-07T12:37:50.034897
-CREATE TABLE category(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    cname CHAR(512) NOT NULL
-);
 success!
-timestamp: 2014-11-07T12:42:10.698212
-ALTER TABLE profile ADD pid INTEGER PRIMARY KEY AUTOINCREMENT;
-timestamp: 2014-11-07T12:43:32.097109
-ALTER TABLE profile ADD pid INTEGER PRIMARY KEY AUTOINCREMENT;
-timestamp: 2014-11-07T12:44:25.542807
-ALTER TABLE profile ADD pid INTEGER PRIMARY KEY AUTOINCREMENT;
-timestamp: 2014-11-07T13:24:52.342107
-ALTER TABLE profile ADD pid INTEGER PRIMARY KEY AUTOINCREMENT;
-timestamp: 2014-11-07T13:26:51.811472
-CREATE TABLE test(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    tname CHAR(512) NOT NULL,
-    tlink CHAR(512) NOT NULL,
-    negative DOUBLE,
-    last_date DATE
-);
 success!
-timestamp: 2014-11-07T13:28:14.197612
-ALTER TABLE profile ADD pid INTEGER PRIMARY KEY AUTOINCREMENT;
-timestamp: 2014-11-07T13:35:23.780807
-ALTER TABLE profile ADD pid INTEGER PRIMARY KEY AUTOINCREMENT;
-timestamp: 2014-11-07T13:40:07.015388
-ALTER TABLE profile ADD pid INTEGER PRIMARY KEY AUTOINCREMENT;
-faked!
 success!
+DELETE FROM profile;
+DELETE FROM sqlite_sequence WHERE name='profile';
 success!
 success!
+DELETE FROM profile;
+DELETE FROM sqlite_sequence WHERE name='profile';
 success!
-timestamp: 2014-11-07T13:43:06.697794
-ALTER TABLE category ADD cid INTEGER PRIMARY KEY AUTOINCREMENT;
-faked!
+DELETE FROM profile;
+DELETE FROM sqlite_sequence WHERE name='profile';
 success!
-timestamp: 2014-11-07T13:43:06.702441
-ALTER TABLE test ADD category INTEGER PRIMARY KEY AUTOINCREMENT, ADD CONSTRAINT  "FK_test_category__constraint" FOREIGN KEY (category) REFERENCES category (cid) ON DELETE CASCADE;
-faked!
-timestamp: 2014-11-07T13:43:06.702803
-ALTER TABLE test ADD teacher_id INTEGER PRIMARY KEY AUTOINCREMENT, ADD CONSTRAINT  "FK_test_teacher_id__constraint" FOREIGN KEY (teacher_id) REFERENCES profile (pid) ON DELETE CASCADE;
-faked!
-timestamp: 2014-11-07T13:43:06.703534
-ALTER TABLE test ADD tid INTEGER PRIMARY KEY AUTOINCREMENT;
-faked!
+DELETE FROM profile;
+DELETE FROM sqlite_sequence WHERE name='profile';
 success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-timestamp: 2014-11-08T16:38:15.385936
-CREATE TABLE statistics(
-    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
-    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
-    score DOUBLE,
-    taken_on TIMESTAMP NOT NULL,
-    PRIMARY KEY(stud_id, test_id, taken_on)) ;
-success!
-success!
-success!
-timestamp: 2014-11-08T16:41:31.556621
-CREATE TABLE statistics(
-    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
-    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
-    score DOUBLE,
-    taken_on TIMESTAMP NOT NULL,
-    PRIMARY KEY(stud_id, test_id, taken_on)) ;
-success!
-success!
-success!
-timestamp: 2014-11-08T16:42:20.518153
-CREATE TABLE statistics(
-    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
-    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
-    score DOUBLE,
-    taken_on TIMESTAMP NOT NULL,
-    PRIMARY KEY(taken_on)) ;
-success!
-success!
-success!
-timestamp: 2014-11-08T16:43:43.638465
-CREATE TABLE statistics(
-    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
-    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
-    score DOUBLE,
-    takenOn TIMESTAMP NOT NULL,
-    PRIMARY KEY(takenOn)) ;
-success!
-success!
-success!
-timestamp: 2014-11-08T16:50:27.615321
-CREATE TABLE statistics(
-    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
-    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
-    score DOUBLE,
-    takenOn TIMESTAMP NOT NULL,
-    PRIMARY KEY(takenOn)) ;
-success!
-success!
-success!
-timestamp: 2014-11-08T16:51:52.307292
-CREATE TABLE statistics(
-    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
-    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
-    score DOUBLE,
-    taken_on TIMESTAMP NOT NULL,
-    PRIMARY KEY(taken_on)) ;
-success!
-success!
-success!
-timestamp: 2014-11-08T16:52:30.393950
-CREATE TABLE statistics(
-    stud_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE,
-    test_id INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_test_id__constraint" FOREIGN KEY (test_id) REFERENCES test (tid) ON DELETE CASCADE,
-    score DOUBLE,
-    taken_on TIMESTAMP NOT NULL,
-    PRIMARY KEY(taken_on)) ;
-faked!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-timestamp: 2014-11-08T17:06:56.972280
-ALTER TABLE profile ADD username CHAR(512) NOT NULL UNIQUE;
-timestamp: 2014-11-08T17:07:19.700357
-ALTER TABLE profile ADD username CHAR(512) NOT NULL UNIQUE;
-timestamp: 2014-11-08T17:07:44.083727
-ALTER TABLE profile ADD username CHAR(512) NOT NULL UNIQUE;
-timestamp: 2014-11-08T17:09:07.131894
-ALTER TABLE profile ADD username CHAR(512) NOT NULL UNIQUE;
-faked!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
+DELETE FROM profile;
+DELETE FROM sqlite_sequence WHERE name='profile';
 success!

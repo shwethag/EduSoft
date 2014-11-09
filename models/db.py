@@ -14,47 +14,40 @@ db = DAL('sqlite://EduDB.sqlite')
 db.define_table('profile',
                 Field('pid','id'),
                 Field('name','string',notnull = True),
-                Field('username','string',notnull = True,unique = True),
+                Field('username','string',notnull = True,unique=True),
                 Field('dob','date'),
                 Field('is_stud','boolean',notnull = True),
                 Field('email','string',notnull = True),
                 Field('pwd','password',notnull = True),
                 Field('profile_pic','blob'),
-                redefine = True,
-                fake_migrate=True,
-                migrate = True,
                 primarykey=['pid']
+                #migrate=True
                 )
 db.define_table('category',
                 Field('cid','id'),
                 Field('cname','string',notnull = True),
-                redefine = True,
-                migrate = True,
-                fake_migrate=True,
                 primarykey=['cid']
+                #migrate=True
                 )
 
 db.define_table('test',
                 Field('tid','id'),
                 Field('tname','string',notnull = True),
-                Field('category',db.category.cid,notnull = True),
+                Field('category',db.category,notnull = True),
                 Field('tlink','string',notnull = True),
-                Field('teacher_id',db.profile.pid,notnull = True),
+                Field('teacher_id',db.profile,notnull = True),
                 Field('negative','double'),
-                Field('last_date','date'),
-                redefine = True,
-                fake_migrate=True,
-                migrate = True,
+                Field('last_date','datetime'),
                 primarykey=['tid']
+                #migrate=True
                 )
 db.define_table('statistics',
-                Field('stud_id',db.profile.pid,notnull = True),
-                Field('test_id',db.test.tid,notnull = True),
+                Field('stud_id',db.profile,notnull = True),
+                Field('test_id',db.test,notnull = True),
                 Field('score','double'),
                 Field('taken_on','datetime'),
-                migrate = True,
-                fake_migrate=True,
                 primarykey=['stud_id','test_id','taken_on']
+                #migrate=True
                )
 
 #########################################################################

@@ -17,6 +17,7 @@
                 </form>
             </div>
         </div>
+    
 
         <div id='bottom' class='down'>
             <div id = 'intro' >
@@ -28,10 +29,10 @@
                           Sign Up!!
                     </h3>
                     <div class='signupinp'>
-                        <label>Full Name :</label> <input name='fname' type='text' placeholder='Full Name' >
-                    </div>
+                        <label>Full Name :</label> <input name='fname' type='text' placeholder='Full Name' required>
+                    </div> 
                     <div class='signupinp'>
-                        <label>User Name :</label> <input name='uname' type='text' placeholder='User Name' >
+                        <label>User Name :</label> <input name='uname' type='text' placeholder='User Name' required >
                     </div>    
                     <div class='signupinp'>
                         <label>Date of Birth :</label> <input name='dob' type = 'date' placeholder='dd/mm/yy' >
@@ -40,17 +41,17 @@
                     <div class='signupinp' id='category'>
                         <label>Teacher :</label> <input  type = 'radio' name ='category' value = 'Teacher' >
                         <p></p>
-                        <label>Student :</label> <input type = 'radio' name ='category' value = 'Student' >
+                        <label>Student :</label> <input type = 'radio' name ='category' value = 'Student' checked>
                     </div>    
                         
                     <div class='signupinp'>    
-                        <label>Email :&nbsp;</label> <input name='mailid' type = 'email' placeholder = 'E-Mail' >
+                        <label>Email :&nbsp;</label> <input name='mailid' type = 'email' placeholder = 'E-Mail' required>
                     </div>
                     <div class='signupinp'>    
-                        <label >Choose Password :</label> <input name='pwd' type = 'password' placeholder = 'password'>
+                        <label >Choose Password :</label> <input name='pwd' type = 'password' placeholder = 'password' pattern=".{3,}" required title="3 characters minimum">
                      </div>
                      <div class='signupinp'>   
-                        <label>Re-Enter Password :</label> <input name='rpwd' type = 'password' placeholder = 'password'>
+                        <label>Re-Enter Password :</label> <input name='rpwd' type = 'password' placeholder = 'password' pattern=".{3,}" required title="3 characters minimum">
                      </div>   
                     <input type = 'submit' value="Sign Up">
                 </form>

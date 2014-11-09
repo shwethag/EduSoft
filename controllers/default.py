@@ -17,27 +17,49 @@ def index():
     return dict(message=T('Hello World'))
 
 def login():
-    response.flash = T("Welcome to EduSoft")
+    session.flash = T("Welcome to EduSoft")
     return dict()
     
 
 def process():
-    name = request.vars['fname']
+    fname = request.vars['fname']
     uname = request.vars['uname']
-    dob = request.vars['dob']
-    category = request.vars['category']
+    bday = request.vars['dob']
+    cat = request.vars['category']
     mailid = request.vars['mailid']
-    pwd = request.vars['pwd']
-    rpwd = request.vars['rpwd']
-    if pwd != rpwd:
-        response.flash = T('Password did not match!!')
-        redirect(request.env.http_referrer)
-    else:
-        return dict(arg=request.args,var=request.vars)
+    passwd = request.vars['pwd']
+    rasspwd = request.vars['rpwd']
+
+    dbUname=db(db.profile.username==uname).select(db.profile.username)
+    #print '----------------'
+    #print dbUname[0]['username']
+    #print '----------------'
+    if dbUname and dbUname[0]['username'] == uname:
+        session.flash = T('Username already exists!!')
+        redirect(URL('login.html'))
+
+    if passwd != rasspwd:
+        session.flash = T('Password did not match!!')
+        redirect(URL('login.html'))
+
+    is_student = True;
+    
+    if cat == 'Teacher':
+        is_student = False    
+    
+    #data=[{'name':name,'username':uname,'dob':dob,'is_stud':is_stud,'email':mailid,'pwd':pwd}]   
+
+    db.profile.insert(name=fname,username=uname,dob=bday,is_stud=is_student,email=mailid,pwd=passwd)
+    return dict(arg=request.args,var=request.vars)
 
 def insertProfile():
     form=SQLFORM(db.profile).process()
     return dict(form=form)
+
+def deleteProfile():
+    db.profile.truncate()
+    db.commit()
+    return 'All Records From Profile Table deleted'
 
 def displayProfile():
     rows=db(db.profile).select()

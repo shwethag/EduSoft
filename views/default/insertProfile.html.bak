@@ -1,4 +1,3 @@
 <h1>This is the default/insert.html template</h1>
 {{extend 'layout.html'}}
-{{=BEAUTIFY(form.errors)}}
 {{=BEAUTIFY(response._vars)}}

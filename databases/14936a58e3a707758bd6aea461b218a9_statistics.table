@@ -1,5 +1,5 @@
 (dp1
-S'score'
+S'stud_id'
 p2
 (dp3
 S'length'
@@ -10,17 +10,17 @@ p5
 I00
 sS'sortable'
 p6
-I3
+I1
 sS'sql'
 p7
-S'DOUBLE'
+S'INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE'
 p8
 sS'notnull'
 p9
-I00
+I01
 sS'type'
 p10
-S'double'
+S'reference profile'
 p11
 ssS'test_id'
 p12
@@ -37,9 +37,9 @@ p14
 sg9
 I01
 sg10
-S'reference test.tid'
+S'reference test'
 p15
-ssS'stud_id'
+ssS'score'
 p16
 (dp17
 g4
@@ -47,14 +47,14 @@ I512
 sg5
 I00
 sg6
-I1
+I3
 sg7
-S'INTEGER PRIMARY KEY AUTOINCREMENT, CONSTRAINT  "FK_statistics_stud_id__constraint" FOREIGN KEY (stud_id) REFERENCES profile (pid) ON DELETE CASCADE'
+S'DOUBLE'
 p18
 sg9
-I01
+I00
 sg10
-S'reference profile.pid'
+S'double'
 p19
 ssS'taken_on'
 p20
