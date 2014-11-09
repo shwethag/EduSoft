@@ -17,7 +17,7 @@ def index():
     return dict(message=T('Hello World'))
 
 def login():
-    response.flash = T("Welcome to EduSoft")
+    session.flash = T("Welcome to EduSoft")
     return dict()
     
 

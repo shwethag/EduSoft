@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    {{extend 'layout.html' }}
+    </head>
+    <body>
+        <div id='top' class='header'>
+            <div id='logo'>
+              <br>
+              <h1 >&nbsp;EduSoft</h1>
+            </div>
+            <div id ='login' class='up'>
+                <form action="fttps://www.google.com">
+                    <input type="text" placeholder='username' required>
+                    <input type='password' placeholder='password' required>
+                    <input type = 'submit' id='logbutton'value='Login' >
+                </form>
+            </div>
+        </div>
+
+        <div id='bottom' class='down'>
+            <div id = 'intro' >
+                This site lets you take tests uploaded by professors.
+            </div>
+            <div id='signup' >
+                <form action="{{=URL('process',args=['fname','uname','dob','category','mailid','pwd','rpwd'])}}" method="post">
+                    <h3>
+                          Sign Up!!
+                    </h3>
+                    <div class='signupinp'>
+                        <label>Full Name :</label> <input name='fname' type='text' placeholder='Full Name' >
+                    </div>
+                    <div class='signupinp'>
+                        <label>User Name :</label> <input name='uname' type='text' placeholder='User Name' >
+                    </div>    
+                    <div class='signupinp'>
+                        <label>Date of Birth :</label> <input name='dob' type = 'date' placeholder='dd/mm/yy' >
+                    </div>    
+
+                    <div class='signupinp' id='category'>
+                        <label>Teacher :</label> <input  type = 'radio' name ='category' value = 'Teacher' >
+                        <p></p>
+                        <label>Student :</label> <input type = 'radio' name ='category' value = 'Student' >
+                    </div>    
+                        
+                    <div class='signupinp'>    
+                        <label>Email :&nbsp;</label> <input name='mailid' type = 'email' placeholder = 'E-Mail' >
+                    </div>
+                    <div class='signupinp'>    
+                        <label >Choose Password :</label> <input name='pwd' type = 'password' placeholder = 'password'>
+                     </div>
+                     <div class='signupinp'>   
+                        <label>Re-Enter Password :</label> <input name='rpwd' type = 'password' placeholder = 'password'>
+                     </div>   
+                    <input type = 'submit' value="Sign Up">
+                </form>
+            </div>
+        </div>
+
+
+    </body>
+</html>
