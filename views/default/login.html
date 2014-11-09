@@ -17,12 +17,8 @@
                 </form>
             </div>
         </div>
-    
-
         <div id='bottom' class='down'>
-            <div id = 'intro' >
-                This site lets you take tests uploaded by professors.
-            </div>
+            <div id = 'intro' ></div>
             <div id='signup' >
                 <form action="{{=URL('process',args=['fname','uname','dob','category','mailid','pwd','rpwd'])}}" method="post">
                     <h3>
@@ -53,7 +49,7 @@
                      <div class='signupinp'>   
                         <label>Re-Enter Password :</label> <input name='rpwd' type = 'password' placeholder = 'password' pattern=".{3,}" required title="3 characters minimum">
                      </div>   
-                    <input type = 'submit' value="Sign Up">
+                    <input type = 'submit' value="Sign Up" id='button'>
                 </form>
             </div>
         </div>
