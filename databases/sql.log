@@ -176,3 +176,10 @@ success!
 DELETE FROM profile;
 DELETE FROM sqlite_sequence WHERE name='profile';
 success!
+DELETE FROM profile;
+DELETE FROM sqlite_sequence WHERE name='profile';
+success!
+DELETE FROM profile;
+DELETE FROM sqlite_sequence WHERE name='profile';
+success!
+success!

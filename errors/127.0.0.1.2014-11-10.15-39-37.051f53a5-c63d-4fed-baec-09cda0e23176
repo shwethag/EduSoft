@@ -1,0 +1,832 @@
+(dp1
+S'output'
+p2
+S"<class 'sqlite3.OperationalError'> no such column: shwe"
+p3
+sS'layer'
+p4
+S'/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/controllers/default.py'
+p5
+sS'code'
+p6
+S'# -*- coding: utf-8 -*-\n# this file is released under public domain and you can use without limitations\n\n#########################################################################\n## This is a sample controller\n## - index is the default action of any application\n## - user is required for authentication and authorization\n## - download is for downloading files uploaded in the db (does streaming)\n## - api is an example of Hypermedia API support and access control\n#########################################################################\n\ndef index():\n    """\n    Redirecting to normal login page \n    """\n   # response.flash = T("Welcome to web2py!")\n    return dict(message=T(\'Hello World\'))\n\ndef login():\n    return dict()\n    \n\ndef enterin():\n    uname = request.vars[\'username\']\n    passwd = request.vars[\'pwd\'] \n    dbUname=db(db.profile.username==uname).select(db.profile.username)\n    if not dbUname:\n        session.flash = T(\'Username does not exists\')\n        redirect(URL(\'login.html\'))\n\n    dbUname=db(db.profile.username==uname and db.profile.pwd == passwd).select(db.profile.username)\n    if not dbUname:\n        session.flash = T(\'Wrong password\')\n        redirect(URL(\'login.html\'))\n\n    return dict(displayProfile(dbUname[0][\'username\']))\n    #redirect(URL(\'displayProfile\',dbUname[0][\'username\']))\n\ndef process():\n    fname = request.vars[\'fname\']\n    uname = request.vars[\'uname\']\n    bday = request.vars[\'dob\']\n    cat = request.vars[\'category\']\n    mailid = request.vars[\'mailid\']\n    passwd = request.vars[\'pwd\']\n    rasspwd = request.vars[\'rpwd\']\n\n    dbUname=db(db.profile.username==uname).select(db.profile.username)\n    #print \'----------------\'\n    #print dbUname[0][\'username\']\n    #print \'----------------\'\n    if dbUname and dbUname[0][\'username\'] == uname:\n        session.flash = T(\'Username already exists!!\')\n        redirect(URL(\'login.html\'))\n\n    if passwd != rasspwd:\n        session.flash = T(\'Password did not match!!\')\n        redirect(URL(\'login.html\'))\n\n    is_student = True;\n    \n    if cat == \'Teacher\':\n        is_student = False    \n    \n    #data=[{\'name\':name,\'username\':uname,\'dob\':dob,\'is_stud\':is_stud,\'email\':mailid,\'pwd\':pwd}]   \n\n    db.profile.insert(name=fname,username=uname,dob=bday,is_stud=is_student,email=mailid,pwd=passwd)\n    return dict(arg=request.args,var=request.vars)\n\ndef insertProfile():\n    form=SQLFORM(db.profile).process()\n    return dict(form=form)\n\ndef deleteProfile():\n    db.profile.truncate()\n    db.commit()\n    return \'All Records From Profile Table deleted\'\n\ndef displayProfile(username):\n    rows=db(db.profile).select(username)\n    return dict(message=rows)\n\ndef insertTest():\n    form=SQLFORM(db.test).process()\n    return dict(form=form)\n\ndef displayTest():\n    rows=db(db.test).select()\n    return dict(message=rows)\n\ndef insertCategory():\n    form=SQLFORM(db.category).process()\n    return dict(form=form)\n    \ndef displayCategory():    \n    rows=db(db.category).select()\n    return dict(message=rows)\n\ndef insertStatistics():\n    form=SQLFORM(db.statistics).process()\n    return dict(form=form)\n    \n    \ndef displayStatistics():    \n    rows=db(db.statistics).select()\n    return dict(message=rows)\n    \n    \n    \ndef user():\n    """\n    exposes:\n    http://..../[app]/default/user/login\n    http://..../[app]/default/user/logout\n    http://..../[app]/default/user/register\n    http://..../[app]/default/user/profile\n    http://..../[app]/default/user/retrieve_password\n    http://..../[app]/default/user/change_password\n    http://..../[app]/default/user/manage_users (requires membership in\n    use @auth.requires_login()\n        @auth.requires_membership(\'group name\')\n        @auth.requires_permission(\'read\',\'table name\',record_id)\n    to decorate functions that need access control\n    """\n    return dict(form=auth())\n\n\n@cache.action()\ndef download():\n    """\n    allows downloading of uploaded files\n    http://..../[app]/default/download/[filename]\n    """\n    return response.download(request, db)\n\n\ndef call():\n    """\n    exposes services. for example:\n    http://..../[app]/default/call/jsonrpc\n    decorate with @services.jsonrpc the functions to expose\n    supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv\n    """\n    return service()\n\n\n@auth.requires_login() \ndef api():\n    """\n    this is example of API with access control\n    WEB2PY provides Hypermedia API (Collection+JSON) Experimental\n    """\n    from gluon.contrib.hypermedia import Collection\n    rules = {\n        \'<tablename>\': {\'GET\':{},\'POST\':{},\'PUT\':{},\'DELETE\':{}},\n        }\n    return Collection(db).process(request,response,rules)\n\nresponse._vars=response._caller(enterin)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__module__'
+p12
+S"'sqlite3'"
+p13
+sS'__getslice__'
+p14
+S"<method-wrapper '__getslice__' of OperationalError object>"
+p15
+sS'__str__'
+p16
+S"<method-wrapper '__str__' of OperationalError object>"
+p17
+sS'__reduce__'
+p18
+S'<built-in method __reduce__ of OperationalError object>'
+p19
+sS'__dict__'
+p20
+S'{}'
+p21
+sS'__sizeof__'
+p22
+S'<built-in method __sizeof__ of OperationalError object>'
+p23
+sS'__weakref__'
+p24
+S'None'
+p25
+sS'__init__'
+p26
+S"<method-wrapper '__init__' of OperationalError object>"
+p27
+sS'__setattr__'
+p28
+S"<method-wrapper '__setattr__' of OperationalError object>"
+p29
+sS'__reduce_ex__'
+p30
+S'<built-in method __reduce_ex__ of OperationalError object>'
+p31
+sS'__new__'
+p32
+S'<built-in method __new__ of type object>'
+p33
+sS'__format__'
+p34
+S'<built-in method __format__ of OperationalError object>'
+p35
+sS'__class__'
+p36
+S"<class 'sqlite3.OperationalError'>"
+p37
+sS'__doc__'
+p38
+S'None'
+p39
+sS'__getitem__'
+p40
+S"<method-wrapper '__getitem__' of OperationalError object>"
+p41
+sS'__setstate__'
+p42
+S'<built-in method __setstate__ of OperationalError object>'
+p43
+sS'__getattribute__'
+p44
+S"<method-wrapper '__getattribute__' of OperationalError object>"
+p45
+sS'args'
+p46
+S"('no such column: shwe',)"
+p47
+sS'__subclasshook__'
+p48
+S'<built-in method __subclasshook__ of type object>'
+p49
+sS'__unicode__'
+p50
+S'<built-in method __unicode__ of OperationalError object>'
+p51
+sS'__delattr__'
+p52
+S"<method-wrapper '__delattr__' of OperationalError object>"
+p53
+sS'__repr__'
+p54
+S"<method-wrapper '__repr__' of OperationalError object>"
+p55
+sS'__hash__'
+p56
+S"<method-wrapper '__hash__' of OperationalError object>"
+p57
+ssS'evalue'
+p58
+S'no such column: shwe'
+p59
+sS'request'
+p60
+cgluon.html
+XML_unpickle
+p61
+(S's\xc5`\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>EduSoft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>username</div></td></tr><tr><td><div>pwd</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>default</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_admin</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-31209628-4660-49d8-b894-84d66f4492d3<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_edusoft</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-785448f6-e36c-48e8-a113-a8fc45f28f17<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_welcome</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-97e26985-8a16-4595-adab-803234e899d1<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div>21</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div>application/x-www-form-urlencoded</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_LANGUAGE</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.5</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div>21</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div>application/x-www-form-urlencoded</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_COOKIE</td><td style="vertical-align:top;">:</td><td><div>session_id_welcome=127.0.0.1-97e26985-8a16-4595-adab-803234e899d1; session_id_admin=127.0.0.1-31209628-4660-49d8-b894-84d66f4492d3; session_id_edusoft=127.0.0.1-785448f6-e36c-48e8-a113-a8fc45f28f17</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1:8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_REFERER</td><td style="vertical-align:top;">:</td><td><div>http://127.0.0.1:8000/EduSoft/default/login.html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/EduSoft/default/enterin/username/pwd</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>47755</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SCRIPT_NAME</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>shwetha-g</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>Rocket 1.2.6</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/home/shwetha/IIITH/web2py/web2py/applications/admin/&#x27;, &#x27;/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/&#x27;, &#x27;/home/shwetha/IIITH/web2py/web2py/applications/welcome/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/home/shwetha/IIITH/web2py/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_options</td><td style="vertical-align:top;">:</td><td><div>&lt;Values at 0x7f0dffb122d8: {&#x27;verbose&#x27;: False, &#x27;ip&#x27;: &#x27;127.0.0.1&#x27;, &#x27;debuglevel&#x27;: 30, &#x27;with_scheduler&#x27;: False, &#x27;ips&#x27;: [&#x27;127.0.1.1&#x27;], &#x27;shutdown_timeout&#x27;: 5, &#x27;taskbar&#x27;: False, &#x27;with_coverage&#x27;: False, &#x27;scheduler_groups&#x27;: None, &#x27;port&#x27;: 8000, &#x27;maxthreads&#x27;: None, &#x27;softcron&#x27;: False, &#x27;server_name&#x27;: &#x27;shwetha-g&#x27;, &#x27;bpython&#x27;: False, &#x27;nogui&#x27;: False, &#x27;pid_filename&#x27;: &#x27;httpserver.pid&#x27;, &#x27;extcron&#x27;: False, &#x27;runcron&#x27;: False, &#x27;run_system_tests&#x27;: False, &#x27;test&#x27;: None, &#x27;folder&#x27;: &#x27;/home/shwetha/IIITH/web2py/web2py&#x27;, &#x27;config&#x27;: &#x27;&#x27;, &#x27;minthreads&#x27;: None, &#x27;shell&#x27;: None, &#x27;run&#x27;: &#x27;&#x27;, &#x27;log_filename&#x27;: &#x27;httpserver.log&#x27;, &#x27;profiler_dir&#x27;: None, &#x27;args&#x27;: [&#x27;&#x27;], &#x27;socket_timeout&#x27;: 5, &#x27;ssl_ca_certificate&#x27;: None, &#x27;scheduler&#x27;: None, &#x27;interfaces&#x27;: None, &#x27;ssl_private_key&#x27;: &#x27;&#x27;, &#x27;gae&#x27;: None, &#x27;password&#x27;: &#x27;&lt;ask&gt;&#x27;, &#x27;request_queue_size&#x27;: 5, &#x27;ssl_certificate&#x27;: &#x27;&#x27;, &#x27;cronjob&#x27;: False, &#x27;numthreads&#x27;: None, &#x27;quiet&#x27;: False, &#x27;import_models&#x27;: False, &#x27;timeout&#x27;: 10, &#x27;plain&#x27;: False, &#x27;nobanner&#x27;: False}&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_length</td><td style="vertical-align:top;">:</td><td><div>21</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_type</td><td style="vertical-align:top;">:</td><td><div>application/x-www-form-urlencoded</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/home/shwetha/IIITH/web2py/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_language</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.5</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_content_length</td><td style="vertical-align:top;">:</td><td><div>21</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_content_type</td><td style="vertical-align:top;">:</td><td><div>application/x-www-form-urlencoded</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cookie</td><td style="vertical-align:top;">:</td><td><div>session_id_welcome=127.0.0.1-97e26985-8a16-4595-adab-803234e899d1; session_id_admin=127.0.0.1-31209628-4660-49d8-b894-84d66f4492d3; session_id_edusoft=127.0.0.1-785448f6-e36c-48e8-a113-a8fc45f28f17</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1:8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_referer</td><td style="vertical-align:top;">:</td><td><div>http://127.0.0.1:8000/EduSoft/default/login.html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>127.0.1.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>shwetha-g</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/EduSoft/default/enterin/username/pwd</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>47755</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/EduSoft/default/enterin/username/pwd</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">script_name</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>shwetha-g</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>Rocket 1.2.6</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/home/shwetha/IIITH/web2py/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.11-stable+timestamp.2014.09.15.23.35.11</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;&lt;stderr&gt;&#x27;, mode &#x27;w&#x27; at 0x7f0e041b51e0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;class wsgiref.util.FileWrapper at 0x7f0e007cb1f0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;socket._fileobject object at 0x7f0dd821d9d0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;&lt;stderr&gt;&#x27;, mode &#x27;w&#x27; at 0x7f0e041b51e0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;class wsgiref.util.FileWrapper at 0x7f0e007cb1f0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;socket._fileobject object at 0x7f0dd821d9d0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>enterin</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/home/shwetha/IIITH/web2py/web2py/applications/admin/&#x27;, &#x27;/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/&#x27;, &#x27;/home/shwetha/IIITH/web2py/web2py/applications/welcome/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/home/shwetha/IIITH/web2py/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_options</td><td style="vertical-align:top;">:</td><td><div>&lt;Values at 0x7f0dffb122d8: {&#x27;verbose&#x27;: False, &#x27;ip&#x27;: &#x27;127.0.0.1&#x27;, &#x27;debuglevel&#x27;: 30, &#x27;with_scheduler&#x27;: False, &#x27;ips&#x27;: [&#x27;127.0.1.1&#x27;], &#x27;shutdown_timeout&#x27;: 5, &#x27;taskbar&#x27;: False, &#x27;with_coverage&#x27;: False, &#x27;scheduler_groups&#x27;: None, &#x27;port&#x27;: 8000, &#x27;maxthreads&#x27;: None, &#x27;softcron&#x27;: False, &#x27;server_name&#x27;: &#x27;shwetha-g&#x27;, &#x27;bpython&#x27;: False, &#x27;nogui&#x27;: False, &#x27;pid_filename&#x27;: &#x27;httpserver.pid&#x27;, &#x27;extcron&#x27;: False, &#x27;runcron&#x27;: False, &#x27;run_system_tests&#x27;: False, &#x27;test&#x27;: None, &#x27;folder&#x27;: &#x27;/home/shwetha/IIITH/web2py/web2py&#x27;, &#x27;config&#x27;: &#x27;&#x27;, &#x27;minthreads&#x27;: None, &#x27;shell&#x27;: None, &#x27;run&#x27;: &#x27;&#x27;, &#x27;log_filename&#x27;: &#x27;httpserver.log&#x27;, &#x27;profiler_dir&#x27;: None, &#x27;args&#x27;: [&#x27;&#x27;], &#x27;socket_timeout&#x27;: 5, &#x27;ssl_ca_certificate&#x27;: None, &#x27;scheduler&#x27;: None, &#x27;interfaces&#x27;: None, &#x27;ssl_private_key&#x27;: &#x27;&#x27;, &#x27;gae&#x27;: None, &#x27;password&#x27;: &#x27;&lt;ask&gt;&#x27;, &#x27;request_queue_size&#x27;: 5, &#x27;ssl_certificate&#x27;: &#x27;&#x27;, &#x27;cronjob&#x27;: False, &#x27;numthreads&#x27;: None, &#x27;quiet&#x27;: False, &#x27;import_models&#x27;: False, &#x27;timeout&#x27;: 10, &#x27;plain&#x27;: False, &#x27;nobanner&#x27;: False}&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/home/shwetha/IIITH/web2py/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>127.0.1.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>shwetha-g</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.11-stable+timestamp.2014.09.15.23.35.11</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_sheduler</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_shell</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2014, 11, 10, 15, 39, 37, 27570)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_args</td><td style="vertical-align:top;">:</td><td><div>username/pwd</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_extension</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/EduSoft/default/enterin/username/pwd</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2014, 11, 10, 10, 9, 37, 27598)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uuid</td><td style="vertical-align:top;">:</td><td><div>EduSoft/127.0.0.1.2014-11-10.15-39-37.051f53a5-c63d-4fed-baec-09cda0e23176</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x7f0dd8f6d8d0&gt;</div></td></tr></table></div>'
+tRp62
+sS'frames'
+p63
+(lp64
+(dp65
+S'file'
+p66
+S'/home/shwetha/IIITH/web2py/web2py/gluon/restricted.py'
+p67
+sS'dump'
+p68
+(dp69
+S'environment'
+p70
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, ...}"
+p71
+sS'ccode'
+p72
+S'<code object <module> at 0x7f0dd827cb30, file "/...cations/EduSoft/controllers/default.py", line 12>'
+p73
+ssS'lnum'
+p74
+I224
+sS'lines'
+p75
+(dp76
+I224
+S'        exec ccode in environment'
+p77
+sI225
+S'    except HTTP:'
+p78
+sI226
+S'        raise'
+p79
+sI227
+S'    except RestrictedError:'
+p80
+sI228
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p81
+sI219
+S'    try:'
+p82
+sI220
+S'        if isinstance(code, types.CodeType):'
+p83
+sI221
+S'            ccode = code'
+p84
+sI222
+S'        else:'
+p85
+sI223
+S'            ccode = compile2(code, layer)'
+p86
+ssS'call'
+p87
+S"(code='# -*- coding: utf-8 -*-\\n# this file is released ...rules)\\n\\nresponse._vars=response._caller(enterin)\\n', environment={'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, ...}, layer='/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/controllers/default.py')"
+p88
+sS'func'
+p89
+S'restricted'
+p90
+sa(dp91
+g66
+S'/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/controllers/default.py'
+p92
+sg68
+(dp93
+sg74
+I159
+sg75
+(dp94
+I148
+S'def api():'
+p95
+sI149
+S'    """'
+p96
+sI150
+S'    this is example of API with access control'
+p97
+sI151
+S'    WEB2PY provides Hypermedia API (Collection+JSON) Experimental'
+p98
+sI152
+S'    """'
+p99
+sI153
+S'    from gluon.contrib.hypermedia import Collection'
+p100
+sI154
+S'    rules = {'
+p101
+sI155
+S"        '<tablename>': {'GET':{},'POST':{},'PUT':{},'DELETE':{}},"
+p102
+sI156
+S'        }'
+p103
+sI157
+S'    return Collection(db).process(request,response,rules)'
+p104
+ssg87
+S'()'
+p105
+sg89
+S'<module>'
+p106
+sa(dp107
+g66
+S'/home/shwetha/IIITH/web2py/web2py/gluon/globals.py'
+p108
+sg68
+(dp109
+S'self'
+p110
+S'undefined'
+p111
+sS'f'
+S'<function enterin>'
+p112
+ssg74
+I392
+sg75
+(dp113
+I387
+S"        self.flash = ''            # used by the default view layout"
+p114
+sI388
+S'        self.meta = Storage()      # used by web2py_ajax.html'
+p115
+sI389
+S'        self.menu = []             # used by the default view layout'
+p116
+sI390
+S'        self.files = []            # used by web2py_ajax.html'
+p117
+sI391
+S'        self._vars = None'
+p118
+sI392
+S'        self._caller = lambda f: f()'
+p119
+sI393
+S'        self._view_environment = None'
+p120
+sI394
+S'        self._custom_commit = None'
+p121
+sI395
+S'        self._custom_rollback = None'
+p122
+sI396
+S"        self.generic_patterns = ['*']"
+p123
+ssg87
+S'(f=<function enterin>)'
+p124
+sg89
+S'<lambda>'
+p125
+sa(dp126
+g66
+S'/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/controllers/default.py'
+p127
+sg68
+(dp128
+S'dbUname'
+p129
+S'<Rows (1)>'
+p130
+sS'builtindict'
+p131
+S"<type 'dict'>"
+p132
+sS'global displayProfile'
+p133
+S'<function displayProfile>'
+p134
+ssg74
+I36
+sg75
+(dp135
+I32
+S'    if not dbUname:'
+p136
+sI33
+S"        session.flash = T('Wrong password')"
+p137
+sI34
+S"        redirect(URL('login.html'))"
+p138
+sI35
+S''
+sI36
+S"    return dict(displayProfile(dbUname[0]['username']))"
+p139
+sI37
+S"    #redirect(URL('displayProfile',dbUname[0]['username']))"
+p140
+sI38
+S''
+sI39
+S'def process():'
+p141
+sI40
+S"    fname = request.vars['fname']"
+p142
+sI31
+S'    dbUname=db(db.profile.username==uname and db.profile.pwd == passwd).select(db.profile.username)'
+p143
+ssg87
+S'()'
+p144
+sg89
+S'enterin'
+p145
+sa(dp146
+g66
+S'/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/controllers/default.py'
+p147
+sg68
+(dp148
+S'global db'
+p149
+S'<DAL uri="sqlite://EduDB.sqlite">'
+p150
+sS'db.profile'
+p151
+S'<Table profile (pid,name,username,dob,is_stud,email,pwd,profile_pic)>'
+p152
+sS'username'
+p153
+S"'shwe'"
+p154
+sS'rows'
+p155
+g111
+sS').select'
+p156
+g111
+ssg74
+I80
+sg75
+(dp157
+I75
+S'    db.profile.truncate()'
+p158
+sI76
+S'    db.commit()'
+p159
+sI77
+S"    return 'All Records From Profile Table deleted'"
+p160
+sI78
+S''
+sI79
+S'def displayProfile(username):'
+p161
+sI80
+S'    rows=db(db.profile).select(username)'
+p162
+sI81
+S'    return dict(message=rows)'
+p163
+sI82
+S''
+sI83
+S'def insertTest():'
+p164
+sI84
+S'    form=SQLFORM(db.test).process()'
+p165
+ssg87
+S"(username='shwe')"
+p166
+sg89
+S'displayProfile'
+p167
+sa(dp168
+g66
+S'/home/shwetha/IIITH/web2py/web2py/gluon/dal.py'
+p169
+sg68
+(dp170
+S'self.query'
+p171
+S'<Query (profile.pid IS NOT NULL)>'
+p172
+sS'adapter.select'
+p173
+S'<bound method SQLiteAdapter.select of <gluon.dal.SQLiteAdapter object>>'
+p174
+sS'fields'
+p175
+S'[<gluon.dal.Expression object>]'
+p176
+sS'adapter'
+p177
+S'<gluon.dal.SQLiteAdapter object>'
+p178
+sS'attributes'
+p179
+g21
+sS'self'
+p180
+S'<Set (profile.pid IS NOT NULL)>'
+p181
+ssg74
+I10749
+sg75
+(dp182
+I10752
+S'        return Expression(self.db, self._select(*fields, **attributes))'
+p183
+sI10753
+S''
+sI10744
+S"                                    attributes.get('join', None),"
+p184
+sI10745
+S"                                    attributes.get('left', None),"
+p185
+sI10746
+S"                                    attributes.get('orderby', None),"
+p186
+sI10747
+S"                                    attributes.get('groupby', None))"
+p187
+sI10748
+S'        fields = adapter.expand_all(fields, tablenames)'
+p188
+sI10749
+S'        return adapter.select(self.query, fields, attributes)'
+p189
+sI10750
+S''
+sI10751
+S'    def nested_select(self, *fields, **attributes):'
+p190
+ssg87
+S'(self=<Set (profile.pid IS NOT NULL)>, *fields=[<gluon.dal.Expression object>], **attributes={})'
+p191
+sg89
+S'select'
+p192
+sa(dp193
+g66
+S'/home/shwetha/IIITH/web2py/web2py/gluon/dal.py'
+p194
+sg68
+(dp195
+S'fields'
+p196
+S'[<gluon.dal.Expression object>]'
+p197
+sS'self'
+p198
+S'<gluon.dal.SQLiteAdapter object>'
+p199
+sS').select'
+p200
+S'<bound method SQLiteAdapter.select of <gluon.dal.SQLiteAdapter object>>'
+p201
+sS'attributes'
+p202
+g21
+sS'global SQLiteAdapter'
+p203
+S"<class 'gluon.dal.SQLiteAdapter'>"
+p204
+sS'query'
+p205
+S'<Query (profile.pid IS NOT NULL)>'
+p206
+sS'builtinsuper'
+p207
+S"<type 'super'>"
+p208
+ssg74
+I2472
+sg75
+(dp209
+I2467
+S'        Note that the entire database, rather than one record, is locked'
+p210
+sI2468
+S'        (it will be locked eventually anyway by the following UPDATE).'
+p211
+sI2469
+S'        """'
+p212
+sI2470
+S"        if attributes.get('for_update', False) and not 'cache' in attributes:"
+p213
+sI2471
+S"            self.execute('BEGIN IMMEDIATE TRANSACTION;')"
+p214
+sI2472
+S'        return super(SQLiteAdapter, self).select(query, fields, attributes)'
+p215
+sI2473
+S''
+sI2474
+S''
+sI2475
+S'class SpatiaLiteAdapter(SQLiteAdapter):'
+p216
+sI2476
+S"    drivers = ('sqlite3', 'sqlite2')"
+p217
+ssg87
+S'(self=<gluon.dal.SQLiteAdapter object>, query=<Query (profile.pid IS NOT NULL)>, fields=[<gluon.dal.Expression object>], attributes={})'
+p218
+sg89
+g192
+sa(dp219
+g66
+S'/home/shwetha/IIITH/web2py/web2py/gluon/dal.py'
+p220
+sg68
+(dp221
+S'fields'
+p222
+S'[<gluon.dal.Expression object>]'
+p223
+sS'self'
+p224
+S'<gluon.dal.SQLiteAdapter object>'
+p225
+sS'attributes'
+p226
+g21
+sS'self._select_aux'
+p227
+S'<bound method SQLiteAdapter._select_aux of <gluon.dal.SQLiteAdapter object>>'
+p228
+sS'sql'
+p229
+S"'SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);'"
+p230
+ssg74
+I1881
+sg75
+(dp231
+I1876
+S'            return cache_model('
+p232
+sI1877
+S'                key,'
+p233
+sI1878
+S'                lambda self=self, args=args: self._select_aux(*args),'
+p234
+sI1879
+S'                time_expire)'
+p235
+sI1880
+S'        else:'
+p236
+sI1881
+S'            return self._select_aux(sql, fields, attributes)'
+p237
+sI1882
+S''
+sI1883
+S'    def _count(self, query, distinct=None):'
+p238
+sI1884
+S'        tablenames = self.tables(query)'
+p239
+sI1885
+S'        if query:'
+p240
+ssg87
+S'(self=<gluon.dal.SQLiteAdapter object>, query=<Query (profile.pid IS NOT NULL)>, fields=[<gluon.dal.Expression object>], attributes={})'
+p241
+sg89
+g192
+sa(dp242
+g66
+S'/home/shwetha/IIITH/web2py/web2py/gluon/dal.py'
+p243
+sg68
+(dp244
+S'self'
+p245
+S'<gluon.dal.SQLiteAdapter object>'
+p246
+sS'self.execute'
+p247
+S'<bound method SQLiteAdapter.execute of <gluon.dal.SQLiteAdapter object>>'
+p248
+sS'sql'
+p249
+S"'SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);'"
+p250
+ssg74
+I1846
+sg75
+(dp251
+I1841
+S''
+sI1842
+S'    def _select_aux(self, sql, fields, attributes):'
+p252
+sI1843
+S'        args_get = attributes.get'
+p253
+sI1844
+S"        cache = args_get('cache',None)"
+p254
+sI1845
+S'        if not cache:'
+p255
+sI1846
+S'            self.execute(sql)'
+p256
+sI1847
+S'            rows = self._fetchall()'
+p257
+sI1848
+S'        else:'
+p258
+sI1849
+S'            (cache_model, time_expire) = cache'
+p259
+sI1850
+S"            key = self.uri + '/' + sql + '/rows'"
+p260
+ssg87
+S"(self=<gluon.dal.SQLiteAdapter object>, sql='SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);', fields=[<gluon.dal.Expression object>], attributes={})"
+p261
+sg89
+S'_select_aux'
+p262
+sa(dp263
+g66
+S'/home/shwetha/IIITH/web2py/web2py/gluon/dal.py'
+p264
+sg68
+(dp265
+S'a'
+S"('SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);',)"
+p266
+sS'self'
+p267
+S'<gluon.dal.SQLiteAdapter object>'
+p268
+sS'b'
+g21
+sS'self.log_execute'
+p269
+S'<bound method SQLiteAdapter.log_execute of <gluon.dal.SQLiteAdapter object>>'
+p270
+ssg74
+I1967
+sg75
+(dp271
+I1962
+S'        self.db._timings.append((command, time.time()-t0))'
+p272
+sI1963
+S'        del self.db._timings[:-TIMINGSSIZE]'
+p273
+sI1964
+S'        return ret'
+p274
+sI1965
+S''
+sI1966
+S'    def execute(self, *a, **b):'
+p275
+sI1967
+S'        return self.log_execute(*a, **b)'
+p276
+sI1968
+S''
+sI1969
+S'    def represent(self, obj, fieldtype):'
+p277
+sI1970
+S'        field_is_type = fieldtype.startswith'
+p278
+sI1971
+S'        if isinstance(obj, CALLABLETYPES):'
+p279
+ssg87
+S"(self=<gluon.dal.SQLiteAdapter object>, *a=('SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);',), **b={})"
+p280
+sg89
+S'execute'
+p281
+sa(dp282
+g66
+S'/home/shwetha/IIITH/web2py/web2py/gluon/dal.py'
+p283
+sg68
+(dp284
+S'a'
+S"('SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);',)"
+p285
+sS'b'
+g21
+sS'self'
+p286
+S'<gluon.dal.SQLiteAdapter object>'
+p287
+sS'ret'
+p288
+g111
+sS'self.cursor'
+p289
+S'<sqlite3.Cursor object>'
+p290
+sS'command'
+p291
+S"'SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);'"
+p292
+sS'self.cursor.execute'
+p293
+S'<built-in method execute of sqlite3.Cursor object>'
+p294
+ssg74
+I1961
+sg75
+(dp295
+I1956
+S'            command = self.filter_sql_command(command)'
+p296
+sI1957
+S'        if self.db._debug:'
+p297
+sI1958
+S"            LOGGER.debug('SQL: %s' % command)"
+p298
+sI1959
+S'        self.db._lastsql = command'
+p299
+sI1960
+S'        t0 = time.time()'
+p300
+sI1961
+S'        ret = self.cursor.execute(command, *a[1:], **b)'
+p301
+sI1962
+S'        self.db._timings.append((command, time.time()-t0))'
+p302
+sI1963
+S'        del self.db._timings[:-TIMINGSSIZE]'
+p303
+sI1964
+S'        return ret'
+p304
+sI1965
+S''
+ssg87
+S"(self=<gluon.dal.SQLiteAdapter object>, *a=('SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);',), **b={})"
+p305
+sg89
+S'log_execute'
+p306
+sasS'pyver'
+p307
+S'Python 2.7.6: /usr/bin/python (prefix: /usr)'
+p308
+sS'session'
+p309
+g61
+(S's\x9c\x00\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr></table></div>'
+tRp310
+sS'etype'
+p311
+S"<class 'sqlite3.OperationalError'>"
+p312
+sS'date'
+p313
+S'Mon Nov 10 15:39:37 2014'
+p314
+sS'response'
+p315
+g61
+(S's\xb12\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x7f0dd8230538&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_edusoft</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-785448f6-e36c-48e8-a113-a8fc45f28f17<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">form_label_separator</td><td style="vertical-align:top;">:</td><td><div>: </div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">formstyle</td><td style="vertical-align:top;">:</td><td><div>table3cols</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>*</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">google_analytics_id</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">logo</td><td style="vertical-align:top;">:</td><td><div><a class="brand" href="http://www.web2py.com/"><b>web<span>2</span>py</b>&trade;&nbsp;</a></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Home</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/EduSoft/default/index</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div><span class="highlighted">web2py</span></div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://web2py.com</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>My Sites</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/default/site</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>This App</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/default/design/EduSoft</div></td></tr><tr><td><div>[(&lt;lazyT &#x27;Controller&#x27;&gt;, False, &#x27;/admin/default/edit/EduSoft/controllers/default.py&#x27;), (&lt;lazyT &#x27;View&#x27;&gt;, False, &#x27;/admin/default/edit/EduSoft/views/default/enterin.html&#x27;), (&lt;lazyT &#x27;Layout&#x27;&gt;, False, &#x27;/admin/default/edit/EduSoft/views/layout.html&#x27;), (&lt;lazyT &#x27;Stylesheet&#x27;&gt;, False, &#x27;/admin/default/edit/EduSoft/static/css/web2py.css&#x27;), (&lt;lazyT &#x27;DB Model&#x27;&gt;, False, &#x27;/admin/default/edit/EduSoft/models/db.py&#x27;), (&lt;lazyT &#x27;Menu Model&#x27;&gt;, False, &#x27;/admin/default/edit/EduSoft/models/menu.py&#x27;), (&lt;lazyT &#x27;Database&#x27;&gt;, False, &#x27;/EduSoft/appadmin/index&#x27;), (&lt;lazyT &#x27;Errors&#x27;&gt;, False, &#x27;/admin/default/errors/EduSoft&#x27;), (&lt;lazyT &#x27;About&#x27;&gt;, False, &#x27;/admin/default/about/EduSoft&#x27;)]</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>web2py.com</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com</div></td></tr><tr><td><div>[(&lt;lazyT &#x27;Download&#x27;&gt;, False, &#x27;http://www.web2py.com/examples/default/download&#x27;), (&lt;lazyT &#x27;Support&#x27;&gt;, False, &#x27;http://www.web2py.com/examples/default/support&#x27;), (&lt;lazyT &#x27;Demo&#x27;&gt;, False, &#x27;http://web2py.com/demo_admin&#x27;), (&lt;lazyT &#x27;Quick Examples&#x27;&gt;, False, &#x27;http://web2py.com/examples/default/examples&#x27;), (&lt;lazyT &#x27;FAQ&#x27;&gt;, False, &#x27;http://web2py.com/AlterEgo&#x27;), (&lt;lazyT &#x27;Videos&#x27;&gt;, False, &#x27;http://www.web2py.com/examples/default/videos/&#x27;), (&lt;lazyT &#x27;Free Applications&#x27;&gt;, False, &#x27;http://web2py.com/appliances&#x27;), (&lt;lazyT &#x27;Plugins&#x27;&gt;, False, &#x27;http://web2py.com/plugins&#x27;), (&lt;lazyT &#x27;Layouts&#x27;&gt;, False, &#x27;http://web2py.com/layouts&#x27;), (&lt;lazyT &#x27;Recipes&#x27;&gt;, False, &#x27;http://web2pyslices.com/&#x27;), (&lt;lazyT &#x27;Semantic&#x27;&gt;, False, &#x27;http://web2py.com/semantic&#x27;)]</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Documentation</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>http://www.web2py.com/book</div></td></tr><tr><td><div>[(&lt;lazyT &#x27;Preface&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/00&#x27;), (&lt;lazyT &#x27;Introduction&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/01&#x27;), (&lt;lazyT &#x27;Python&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/02&#x27;), (&lt;lazyT &#x27;Overview&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/03&#x27;), (&lt;lazyT &#x27;The Core&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/04&#x27;), (&lt;lazyT &#x27;The Views&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/05&#x27;), (&lt;lazyT &#x27;Database&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/06&#x27;), (&lt;lazyT &#x27;Forms and Validators&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/07&#x27;), (&lt;lazyT &#x27;Email and SMS&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/08&#x27;), (&lt;lazyT &#x27;Access Control&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/09&#x27;), (&lt;lazyT &#x27;Services&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/10&#x27;), (&lt;lazyT &#x27;Ajax Recipes&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/11&#x27;), (&lt;lazyT &#x27;Components and Plugins&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/12&#x27;), (&lt;lazyT &#x27;Deployment Recipes&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/13&#x27;), (&lt;lazyT &#x27;Other Recipes&#x27;&gt;, False, &#x27;http://www.web2py.com/book/default/chapter/14&#x27;), (&lt;lazyT &#x27;Buy this book&#x27;&gt;, False, &#x27;http://stores.lulu.com/web2py&#x27;)]</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Community</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>None</div></td></tr><tr><td><div>[(&lt;lazyT &#x27;Groups&#x27;&gt;, False, &#x27;http://www.web2py.com/examples/default/usergroups&#x27;), (&lt;lazyT &#x27;Twitter&#x27;&gt;, False, &#x27;http://twitter.com/web2py&#x27;), (&lt;lazyT &#x27;Live Chat&#x27;&gt;, False, &#x27;http://webchat.freenode.net/?channels=web2py&#x27;)]</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Plugins</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>None</div></td></tr><tr><td><div>[(&#x27;plugin_wiki&#x27;, False, &#x27;http://web2py.com/examples/default/download&#x27;), (&lt;lazyT &#x27;Other Plugins&#x27;&gt;, False, &#x27;http://web2py.com/plugins&#x27;), (&lt;lazyT &#x27;Layout Plugins&#x27;&gt;, False, &#x27;http://web2py.com/layouts&#x27;)]</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">author</td><td style="vertical-align:top;">:</td><td><div>Your Name &lt;you@example.com&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generator</td><td style="vertical-align:top;">:</td><td><div>Web2py Web Framework</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">keywords</td><td style="vertical-align:top;">:</td><td><div>web2py, python, framework</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^default/\\w+\\.py$</div></td></tr><tr><td><div>^default/enterin/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_key</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_edusoft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_file</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/sessions/1e0/1f1/127.0.0.1-785448f6-e36c-48e8-a113-a8fc45f28f17&#x27;, mode &#x27;rb+&#x27; at 0x7f0dd83b41e0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_filename</td><td style="vertical-align:top;">:</td><td><div>/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/sessions/127.0.0.1-785448f6-e36c-48e8-a113-a8fc45f28f17</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>dbf275f630b14684f52c91914f6c1289</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-785448f6-e36c-48e8-a113-a8fc45f28f17</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_edusoft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_locked</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>EduSoft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>file</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">subtitle</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">title</td><td style="vertical-align:top;">:</td><td><div>Edusoft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>default/enterin.html</div></td></tr></table></div>'
+tRp316
+sS'locals'
+p317
+(dp318
+S'a'
+S"('SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);',)"
+p319
+sS'self'
+p320
+S'<gluon.dal.SQLiteAdapter object>'
+p321
+sS'b'
+g21
+sS'command'
+p322
+S"'SELECT  shwe FROM profile WHERE (profile.pid IS NOT NULL);'"
+p323
+sS't0'
+p324
+S'1415614177.075301'
+p325
+sssS'traceback'
+p326
+S'Traceback (most recent call last):\n  File "/home/shwetha/IIITH/web2py/web2py/gluon/restricted.py", line 224, in restricted\n    exec ccode in environment\n  File "/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/controllers/default.py", line 159, in <module>\n  File "/home/shwetha/IIITH/web2py/web2py/gluon/globals.py", line 392, in <lambda>\n    self._caller = lambda f: f()\n  File "/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/controllers/default.py", line 36, in enterin\n    return dict(displayProfile(dbUname[0][\'username\']))\n  File "/home/shwetha/IIITH/web2py/web2py/applications/EduSoft/controllers/default.py", line 80, in displayProfile\n    rows=db(db.profile).select(username)\n  File "/home/shwetha/IIITH/web2py/web2py/gluon/dal.py", line 10749, in select\n    return adapter.select(self.query, fields, attributes)\n  File "/home/shwetha/IIITH/web2py/web2py/gluon/dal.py", line 2472, in select\n    return super(SQLiteAdapter, self).select(query, fields, attributes)\n  File "/home/shwetha/IIITH/web2py/web2py/gluon/dal.py", line 1881, in select\n    return self._select_aux(sql, fields, attributes)\n  File "/home/shwetha/IIITH/web2py/web2py/gluon/dal.py", line 1846, in _select_aux\n    self.execute(sql)\n  File "/home/shwetha/IIITH/web2py/web2py/gluon/dal.py", line 1967, in execute\n    return self.log_execute(*a, **b)\n  File "/home/shwetha/IIITH/web2py/web2py/gluon/dal.py", line 1961, in log_execute\n    ret = self.cursor.execute(command, *a[1:], **b)\nOperationalError: no such column: shwe\n'
+p327
+s.

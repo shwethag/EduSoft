@@ -17,9 +17,23 @@ def index():
     return dict(message=T('Hello World'))
 
 def login():
-    session.flash = T("Welcome to EduSoft")
     return dict()
     
+
+def enterin():
+    uname = request.vars['username']
+    passwd = request.vars['pwd'] 
+    dbUname=db(db.profile.username==uname).select(db.profile.username)
+    if not dbUname:
+        session.flash = T('Username does not exists')
+        redirect(URL('login.html'))
+
+    dbUname=db(db.profile.username==uname and db.profile.pwd == passwd).select(db.profile.username)
+    if not dbUname:
+        session.flash = T('Wrong password')
+        redirect(URL('login.html'))
+
+    redirect(URL('showUserProfile',vars=dict(username=dbUname[0]['username'])))
 
 def process():
     fname = request.vars['fname']
@@ -50,10 +64,26 @@ def process():
     #data=[{'name':name,'username':uname,'dob':dob,'is_stud':is_stud,'email':mailid,'pwd':pwd}]   
 
     db.profile.insert(name=fname,username=uname,dob=bday,is_stud=is_student,email=mailid,pwd=passwd)
-    return dict(arg=request.args,var=request.vars)
+    redirect(URL('showUserProfile',vars=dict(username=uname)))
 
 def insertProfile():
     form=SQLFORM(db.profile).process()
+    return dict(form=form)
+
+def insertPic():
+    rows = db(db.profile.username=='shwe').select('pid')
+    for row in rows:
+        record = row.pid
+    print record
+    record = db.profile[record]
+    print "record",record
+    form=SQLFORM(db.profile,record,fields=['profile_pic'],upload=URL('download'))
+    if form.process().accepted:
+        session.flash=T('Pic updated')
+        
+    else:
+        session.flash=T('Error in upload')
+        print form.errors
     return dict(form=form)
 
 def deleteProfile():
@@ -64,6 +94,27 @@ def deleteProfile():
 def displayProfile():
     rows=db(db.profile).select()
     return dict(message=rows)
+
+def showUserProfile():
+    uname = request.vars['username']
+    rows=db(db.profile.username==uname).select()
+    vals = {}
+    for row in rows:
+        vals['name'] = row.name
+        vals['username'] = row.username
+        vals['dob'] = row.dob
+        vals['type'] = row.is_stud
+        vals['email'] = row.email
+        vals['image'] = row.profile_pic
+    return dict(vals)
+
+def uploadImage():
+    print request.vars
+    print request.args
+    uname = request.args[0]
+    print "here", uname
+   # db.profile.insert(profile_pic=)
+    redirect(URL('showUserProfile',vars=dict(username=uname)))
 
 def insertTest():
     form=SQLFORM(db.test).process()

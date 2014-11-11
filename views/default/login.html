@@ -4,18 +4,12 @@
     {{extend 'layout.html' }}
     </head>
     <body>
-        <div id='top' class='header'>
-            <div id='logo'>
-              <br>
-              <h1 >&nbsp;EduSoft</h1>
-            </div>
-            <div id ='login' class='up'>
-                <form action="fttps://www.google.com">
-                    <input type="text" placeholder='username' required>
-                    <input type='password' placeholder='password' required>
-                    <input type = 'submit' id='logbutton'value='Login' >
-                </form>
-            </div>
+        <div id ='login' class='up'>
+            <form action="{{=URL('enterin',args=['username','pwd'])}}" method='post'>
+                <input type="text" name = 'username' placeholder='username' required>
+                <input type='password' name = 'pwd' placeholder='password' required>
+                <input type = 'submit' id='logbutton'value='Login' >
+            </form>
         </div>
         <div id='bottom' class='down'>
             <div id = 'intro' ></div>
@@ -31,7 +25,7 @@
                         <label>User Name :</label> <input name='uname' type='text' placeholder='User Name' required >
                     </div>    
                     <div class='signupinp'>
-                        <label>Date of Birth :</label> <input name='dob' type = 'date' placeholder='dd/mm/yy' >
+                        <label>Date of Birth :</label> <input name='dob' class='date' type = 'date' placeholder='yyyy-mm-dd' >
                     </div>    
 
                     <div class='signupinp' id='category'>

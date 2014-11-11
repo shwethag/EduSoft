@@ -19,7 +19,7 @@ db.define_table('profile',
                 Field('is_stud','boolean',notnull = True),
                 Field('email','string',notnull = True),
                 Field('pwd','password',notnull = True),
-                Field('profile_pic','blob'),
+                Field('profile_pic','upload'),
                 primarykey=['pid']
                 #migrate=True
                 )

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{{extend 'layout.html'}}
+<div class='userinfo'>
+	<h3>{{=response._vars['name']}}</h3>
+	<div id='left'>
+		<div class = 'info'>
+			<label>User Name :</label>	<input type='text' name = 'uname' value = {{=response._vars['username']}} readonly>
+		</div>
+		<div class = 'info'>
+			<label>Date of Birth :</label>	<input type='text' name = 'dob' value = {{=response._vars['dob']}} readonly>
+		</div>
+		<div class = 'info'>
+			<label>Email :</label>	<input type='text' name = 'email' value = {{=response._vars['email']}} readonly>
+		</div>
+		<div class = 'info'>
+			<label>Account Type :</label>	<input type='text' name = 'type' value = {{=response._vars['type']}} readonly>
+		</div>
+	</div>
+	<div id='right'>
+		<img src="{{=URL('download',args=response._vars['image'])}}">
+		
+		<form action="{{=URL('uploadImage',args=response._vars['username'])}}">
+			<input type='file' name = 'image' >
+			<input type='submit' name= 'submit' value="Upload">
+		</form>
+	</div>
+</div>
