@@ -27,12 +27,10 @@ def enterin():
     if not dbUname:
         session.flash = T('Username does not exists')
         redirect(URL('login.html'))
-
-    dbUname=db(db.profile.username==uname and db.profile.pwd == passwd).select(db.profile.username)
+    dbUname=db((db.profile.username==uname) & (db.profile.pwd == passwd)).select(db.profile.username)
     if not dbUname:
         session.flash = T('Wrong password')
         redirect(URL('login.html'))
-
     redirect(URL('showUserProfile',vars=dict(username=dbUname[0]['username'])))
 
 def process():
